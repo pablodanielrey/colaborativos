@@ -1,0 +1,50 @@
+@startuml metamodelo_cssl
+'skinparam monochrome reverse
+title "Metamodelo CSSL"
+
+class ColaborativeElement
+class Workspace
+class Tool
+class SharedObject
+class ColaborativeActivity
+
+ColaborativeElement <|-- Workspace
+ColaborativeElement <|-- Tool
+ColaborativeElement <|-- SharedObject
+ColaborativeElement <|-- ColaborativeActivity
+
+ColaborativeElement --> Workspace
+
+@enduml
+
+@startuml
+allowmixing
+
+skinparam object {
+    BackgroundColor #White
+    BorderColor #Blue
+    BorderStyle dashed
+}
+
+object "<&star>Presenci" as pres {
+    --
+    <&cog>(blancas)Mesa->in
+}
+
+rectangle jugar #Gray
+
+() "<&star>Mesa" as mesa #Orange
+() "<&star>Expectador" as expectador #LightBlue
+() "<&star>Juez" as juez #LightBlue
+() "<&star>Blancas" as blancas #LightBlue
+() "<&star>Negras" as negras #LightBlue
+
+jugar -r[#Orange]-> mesa
+jugar "0" -u[#Blue]-> "10" expectador
+jugar "1" -u[#Blue]-> "1" juez
+jugar "1" -d[#Blue]-> "1" blancas
+jugar "1" -l[#Blue]-> "1" negras
+
+pres -[#Orange]-> mesa
+
+@enduml
