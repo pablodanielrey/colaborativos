@@ -1,0 +1,109 @@
+
+@startuml
+allowmixing
+
+/'
+    https://www.scrum.org/resources/what-is-scrum
+'/
+
+title Modelado Colaborativo del proceso de SCRUM
+
+() "<&star>Product Owner" as owner #LightBlue
+() "<&star>Stake Holder" as sh #LightBlue
+() "<&star>Backlog" as backlog #Orange
+rectangle product #Gray
+rectangle product_backlog #Green
+
+product "1" -d[#Blue]-> "1" owner
+product "1" -d[#Blue]-> "*" sh
+product -[#Green]-> product_backlog
+product -[#Orange]-> backlog
+
+
+() "<&star>Product Owner" as owner2 #LightBlue
+() "<&star>Team Member" as tm2 #LightBlue
+() "<&star>People" as people #LightBlue
+() "<&star>Tablero" as tablero2 #Orange
+rectangle sprint_planning #Gray
+rectangle "product_backlog" as product_backlog2 #Green
+rectangle sprint_plan #Green
+sprint_planning "1" -[#Blue]-> "*" tm2
+sprint_planning "1" -[#Blue]-> "1" owner2
+sprint_planning "1" -[#Blue]-> "*" people
+sprint_planning -[#Green]-> product_backlog2
+sprint_planning -[#Green]-> sprint_plan
+sprint_planning -[#Orange]-> tablero2
+product ...> sprint_planning
+
+
+() "<&star>Team Member" as tm3 #LightBlue
+() "<&star>Scrum Master" as sm3 #LightBlue
+() "<&star>Tablero Discución" as tablero3 #Orange
+() "<&star>Tablero Desarrollo" as tablero_desarrollo3 #Orange
+rectangle "sprint_plan" as sprint_plan3 #Green
+rectangle "editor" as editor3 #Green
+rectangle "git" as git3 #Green
+rectangle "chat" as chat3 #Green
+rectangle "video" as video3 #Green
+rectangle sprint #Gray
+
+sprint "1" -[#Blue]-> "*" tm3
+sprint "1" -[#Blue]-> "1" sm3
+sprint -u[#Green]-> sprint_plan3
+sprint -u[#Green]-> editor3
+sprint -u[#Green]-> git3
+sprint -u[#Green]-> chat3
+sprint -u[#Green]-> video3
+sprint -[#Orange]-> tablero3
+sprint -[#Orange]-> tablero_desarrollo3
+sprint_planning ...> sprint
+
+
+() "<&star>Team Member" as tm4 #LightBlue
+() "<&star>Scrum Master" as sm4 #LightBlue
+() "<&star>Tablero" as tablero4 #Orange
+rectangle daily_scrum #Gray
+rectangle "sprint_plan" as sprint_plan4 #Green
+daily_scrum "1" -[#Blue]-> "*" tm4
+daily_scrum "1" -[#Blue]-> "1" sm4
+daily_scrum -[#Green]-> sprint_plan4
+daily_scrum -[#Orange]-> tablero4
+sprint .> daily_scrum
+daily_scrum .> sprint
+
+
+() "<&star>Team Member" as tm5 #LightBlue
+() "<&star>Stake Holder" as sh5 #LightBlue
+() "<&star>Product Owner" as pw5 #LightBlue
+() "<&star>Tablero" as tablero5 #Orange
+rectangle "sprint_plan" as sprint_plan5 #Green
+rectangle sprint_review #Gray
+sprint_review "1" -[#Blue]-> "*" tm5
+sprint_review "1" -[#Blue]-> "*" sh5
+sprint_review "1" -[#Blue]-> "1" pw5
+sprint_review -[#Green]-> sprint_plan5
+sprint_review -[#Orange]-> tablero5
+
+sprint ...> sprint_review
+
+
+() "<&star>Team Member" as tm6 #LightBlue
+() "<&star>Scrum Master" as sm6 #LightBlue
+() "<&star>Tablero" as tablero6 #Orange
+rectangle "sprint_plan" as sprint_plan6 #Green
+rectangle sprint_retrospective #Gray
+sprint_retrospective "1" -[#Blue]-> "*" tm6
+sprint_retrospective "1" -[#Blue]-> "1" sm6
+sprint_retrospective -[#Green]-> sprint_plan6
+sprint_retrospective -[#Orange]-> tablero6
+sprint_review .up.> sprint_retrospective
+sprint_retrospective .> sprint
+
+
+' iteración del producto
+
+rectangle product_iteration
+sprint ...down...> product_iteration
+
+
+@enduml

@@ -31,7 +31,7 @@ object "<&star>Presenci" as pres {
     <&cog>(blancas)Mesa->in
 }
 
-rectangle jugar #Gray
+
 
 () "<&star>Mesa" as mesa #Orange
 () "<&star>Expectador" as expectador #LightBlue
@@ -39,12 +39,16 @@ rectangle jugar #Gray
 () "<&star>Blancas" as blancas #LightBlue
 () "<&star>Negras" as negras #LightBlue
 
+diamond p #Green
+
 jugar -r[#Orange]-> mesa
 jugar "0" -u[#Blue]-> "10" expectador
 jugar "1" -u[#Blue]-> "1" juez
 jugar "1" -d[#Blue]-> "1" blancas
 jugar "1" -l[#Blue]-> "1" negras
+jugar -[#Green]- p
 
 pres -[#Orange]-> mesa
 
 @enduml
+
