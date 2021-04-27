@@ -40,6 +40,7 @@ object "<&star>Presenci" as pres {
 () "<&star>Negras" as negras #LightBlue
 
 diamond p #Green
+rectangle jugar #Gray
 
 jugar -r[#Orange]-> mesa
 jugar "0" -u[#Blue]-> "10" expectador
