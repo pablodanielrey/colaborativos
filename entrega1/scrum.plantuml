@@ -22,14 +22,12 @@ product -[#Orange]-> backlog
 
 () "<&star>Product Owner" as owner2 #LightBlue
 () "<&star>Team Member" as tm2 #LightBlue
-() "<&star>People" as people #LightBlue
 () "<&star>Tablero" as tablero2 #Orange
 rectangle sprint_planning #Gray
 rectangle "product_backlog" as product_backlog2 #Green
 rectangle sprint_plan #Green
 sprint_planning "1" -[#Blue]-> "*" tm2
 sprint_planning "1" -[#Blue]-> "1" owner2
-sprint_planning "1" -[#Blue]-> "*" people
 sprint_planning -[#Green]-> product_backlog2
 sprint_planning -[#Green]-> sprint_plan
 sprint_planning -[#Orange]-> tablero2
