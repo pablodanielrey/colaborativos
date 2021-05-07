@@ -1,0 +1,31 @@
+@startuml
+allowmixing
+
+() "<&star>Team Member" as tm3 #LightBlue
+() "<&star>Scrum Master" as sm3 #LightBlue
+() "<&star>Desktop" as desktop3 #Orange
+rectangle "sprint_plan" as sprint_plan3 #Green
+rectangle "editor" as editor3 #Green
+rectangle "git" as git3 #Green
+rectangle "chat" as chat3 #Green
+rectangle "video" as video3 #Green
+rectangle dev #Gray
+
+dev "1" -[#Blue]-> "*" tm3
+dev "1" -[#Blue]-> "1" sm3
+dev -u[#Green]-> sprint_plan3
+dev -u[#Green]-> editor3
+dev -u[#Green]-> git3
+dev -u[#Green]-> chat3
+dev -u[#Green]-> video3
+dev -[#Orange]-> desktop3
+
+
+@enduml
+
+@startuml
+
+(*) --> "primero"
+"primero" -> (*)
+
+@enduml

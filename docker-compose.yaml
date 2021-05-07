@@ -1,0 +1,24 @@
+version: '3.3'
+#networks:
+#    plantuml_network:                         # Name of network
+#        driver: macvlan                       # Use the macvlan network driver
+#        driver_opts:
+#            parent: wlp4s0
+#        ipam:
+#            config:
+#            - subnet: 192.168.10.0/24        # Specify subnet
+#            gateway: 192.168.10.1          # Gateway address
+#            ip-range: 192.168.10.192/28    # Available IP addresses
+  
+services:
+  plantuml-server:
+    image: plantuml/plantuml-server
+    container_name: plantuml-server
+    restart: "no"
+    environment:
+      - MYSQL_ROOT_PASSWORD=302c2d81e52034425a7ffe7ee22285a0d2a0b877
+      - MYSQL_DATABASE=mautic_mfp_blog
+    ports:
+        - 8080:8080/tcp
+#    networks:
+#      - plantuml_network
