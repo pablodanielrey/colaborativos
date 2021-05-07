@@ -43,11 +43,15 @@ product -d[#Orange]-> room
 title protocolo de definición de producto
 
 state "Presentación" as presentation
+presentation: Available Operations:
+presentation: ==================================================
 presentation: (Product Owner) Video->hablar
 presentation: (Stake Holder) Video->escuchar
 presentation: (Team Member) Video->escuchar
 presentation: (Ingeniero de Requerimientos) Video->hablar
 presentation: 
+presentation: Transition Operations:
+presentation: ==================================================
 presentation: (Ingeniero de Requerimientos) Tablero de User Stories->crear
 
 state "Exposición de funcionalidad requerida" as efr
