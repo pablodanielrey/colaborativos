@@ -1,0 +1,311 @@
+@startuml
+title Etapa de definición del producto
+allowmixing
+
+() "<&star>Product Owner" as owner #LightBlue
+() "<&star>Stake Holder" as sh #LightBlue
+() "<&star>Ingeniero de Requerimientos" as rem #LightBlue
+() "<&star>Team Member" as tm #LightBlue
+() "<&star>Sala de Conferencias" as room #Orange
+rectangle "Definición de Producto" as product #Gray
+rectangle "Tablero de User Stories" as user_stories #Green
+rectangle "Tablero de Technical Work" as technical_work #Green
+rectangle "Tablero de Conocimientos" as knoledge_adquisition #Green
+rectangle "Backlog" as product_backlog #Green
+rectangle "Video Conferencia" as video #Green
+
+product "1" -d[#Blue]-> "1" owner
+product "1" -d[#Blue]-> "*" sh
+product "1" -d[#Blue]-> "1" rem
+product "1" -d[#Blue]-> "*" tm
+product -u[#Green]-> product_backlog
+product -u[#Green]-> user_stories
+product -u[#Green]-> technical_work
+product -u[#Green]-> knoledge_adquisition
+product -u[#Green]-> video
+product -d[#Orange]-> room
+
+@enduml
+
+/'
+    El diagrama de transición de estados dentro de la actividad
+    recursos: 
+        https://www.mountaingoatsoftware.com/agile/scrum/scrum-tools/product-backlog#:~:text=The%20agile%20product%20backlog%20in,functionality%20desired%20in%20the%20product.&text=The%20Scrum%20product%20backlog%20is,the%20product%20and%20its%20customers.
+
+
+    consultas:
+        si o si todos los estados a choices? o puede haber transferencia a estados directamente sin pasar por choice?
+        todos los roles deben estar indicados en cada estado? o puede haber "subroles" ej Ingeniero de Requerimineto --> Team Member
+
+
+'/
+@startuml
+title protocolo de definición de producto
+
+state "Presentación" as presentation
+presentation: (Product Owner) Video->hablar
+presentation: (Stake Holder) Video->escuchar
+presentation: (Team Member) Video->escuchar
+presentation: (Ingeniero de Requerimientos) Video->hablar
+presentation: 
+presentation: (Ingeniero de Requerimientos) Tablero de User Stories->crear
+
+state "Exposición de funcionalidad requerida" as efr
+efr: Available Operations:
+efr: ==================================================
+efr: (Product Owner) Video->hablar
+efr: (Product Owner) Tablero de User Stories->agregar
+efr: (Product Owner) Tablero de User Stories->leer
+efr: (Stake Holder) Video->hablar
+efr: (Stake Holder) Tablero de User Stories->agregar
+efr: (Stake Holder) Tablero de User Stories->leer
+efr: (Ingeniero de Requerimientos) Video->escuchar
+efr: (Ingeniero de Requeriminetos) Tablero de User Stories->leer
+efr: (Team Member) Video->escuchar
+efr: (Team Member) Tablero de User Stories->leer
+efr:
+efr: Transition Operations :
+efr: ==================================================
+efr: (Product Owner) Tablero de User Stories->commit
+
+state "Selección de User Story" as sus
+sus: Available Operations:
+sus: ==================================================
+sus: (Ingeniero de Requerimientos)  Tablero de User Stories->leer
+sus: (Ingeniero de Requerimientos) Video->hablar
+sus: (Product Owner) Video->escuchar
+sus: (Stake Holder) Video->escuchar
+sus:
+sus: (Ingeniero de Requeriminetos) Tablero de User Stories->seleccionar
+
+state "Definición de requerimiento" as dr
+dr: Available Operations:
+dr: ==================================================
+dr: (Product Owner) Video->hablar
+dr: (Product Owner) Tablero de User Stories->leer
+dr: (Stake Holder) Video->hablar
+dr: (Stake Holder) Tablero de User Stories->leer
+dr: (Ingeniero de Requerimientos) Video->hablar
+dr: (Ingeniero de Requeriminetos) Tablero de User Stories->modificar
+dr: (Ingeniero de Requeriminetos) Tablero de Conocimientos->agregar
+dr: (Team Member) Tablero de Technical Work->agregar
+dr: (Team Member) Tablero de Conocimientos->agregar
+dr:
+dr: Transition Operations :
+dr: ================================================== 
+dr: (Ingeniero de Requerimientos) Tablero de User Stories->commit
+
+
+state "Refinamiento de Requerimientos" as rr
+rr: Available Operations:
+rr: ==================================================
+rr: (Ingeniero de Requerimientos) Video->hablar
+rr: (Ingeniero de Requeriminetos) Tablero de User Stories->leer
+rr: (Ingeniero de Requeriminetos) Tablero de Conocimientos->modificar
+rr: (Ingeniero de Requeriminetos) Tablero de Conocimientos->agregar
+rr: (Team Member) Tablero de User Stories->leer
+rr: (Team Member) Tablero de Technical Work->agregar
+rr: (Team Member) Tablero de Technical Work->modificar
+rr: (Team Member) Tablero de Conocimientos->agregar
+rr: (Team Member) Tablero de Conocimientos->modificar
+rr: (Team Member) Backlog->agregar
+rr:
+rr: Transition Operations :
+rr: ==================================================
+rr: (Ingeniero de Requerimientos) Backlog->commit
+
+
+state "Priorización de Blacklog" as fb
+fb: Available Operations:
+fb: ==================================================
+fb: (Product Owner) Video->hablar
+fb: (Product Owner) Backlog->modificar
+fb: (Ingeniero de Requeriminetos) Video->hablar
+fb: (Ingeniero de Requeriminetos) Backlog->leer
+fb: (Team Member) Video->hablar
+fb: (Team Member) Backlog->leer
+fb:
+fb: Transition Operations :
+fb: ==================================================
+fb: (Product Owner) Backlog->commit
+
+state c1 <<choice>>
+
+[*] --> presentation
+presentation --> efr  : (Ingeniero de Requerimientos) Tablero de User Stories->crear
+efr --> c1
+c1 --[dashed]--> sus : (Product Owner) Tablero de User Stories->commit
+sus --> c1
+c1 --[dashed]--> dr : (Ingeniero de Requeriminetos) Tablero de User Stories->seleccionar
+dr --> c1
+
+c1 --[dashed]--> rr : (Ingeniero de Requerimientos) Tablero de User Stories->refinar
+rr --> c1
+
+c1 -[dashed]-> fb : (Ingeniero de Requerimientos) Backlog->priorizar
+
+fb --> [*]
+
+@enduml
+
+
+
+@startuml
+title protocolo de product
+
+'se analiza y se genera el product backlog
+
+state c1 <<choice>>
+
+state inicia_vc
+inicia_vc: Available Operations: \n----------------------------------
+inicia_vc: 
+inicia_vc: Transition Operations: \n--------------------------------
+inicia_vc: (Stake Holder) Video->pedir_hablar
+inicia_vc: (Product Owner) Video->pedir_hablar
+
+state HablaStakeHolder
+HablaStakeHolder: Available Operations: \n---------------------------
+HablaStakeHolder: (Stake Holder) Video->hablar
+HablaStakeHolder: 
+HablaStakeHolder: Transition Operations: \n---------------------------
+HablaStakeHolder: (Product Owner) Video->pedir_hablar
+HablaStakeHolder: (Product Owner) Video->terminar
+HablaStakeHolder: (Product Owner) product_backlog->escribir
+
+state HablaProductOwner
+HablaProductOwner: Available Operations: \n---------------------------
+HablaProductOwner: (Product Owner) Video->hablar
+HablaProductOwner: 
+HablaProductOwner: Transition Operations: \n--------------------------
+HablaProductOwner: (Stake Holder) Video->pedir_hablar
+HablaProductOwner: (Product Owner) Video->terminar
+HablaProductOwner: (Product Owner) product_backlog->escribir
+
+
+state ProductBacklogEscribir
+ProductBacklogEscribir: Available Operations: \n------------------------
+ProductBacklogEscribir: (Product Owner) backlog->escribir
+ProductBacklogEscribir: 
+ProductBacklogEscribir: Transition Operations: \n------------------------
+ProductBacklogEscribir: (Stake Holder) Video->pedir_hablar
+ProductBacklogEscribir: (Product Owner) Video->pedir_hablar
+ProductBacklogEscribir: (Product Owner) product_backlog->terminar
+
+[*] --> inicia_vc
+inicia_vc --> c1
+c1 -[dashed]-> HablaStakeHolder : (Stake Holder) Video->pedir_hablar
+c1 -[dashed]-> HablaProductOwner : (Product Owner) Video->pedir_hablar
+c1 -[dashed]-> ProductBacklogEscribir: (Product Owner) product_backlog->escribir
+c1 --[dashed]--> [*] : (Product Owner) product_backlog->terminar
+
+HablaStakeHolder ---> c1 
+HablaProductOwner ---> c1
+ProductBacklogEscribir ---> c1
+
+@enduml
+
+@startuml
+title ejemplo video conferencia
+
+[*] --> vc
+
+state c1 <<choice>>
+
+state vc
+vc: Available Operations: \n----------------------------------
+vc: (Stake Holder) Video->hablar
+vc: (Product Owner) Video->hablar
+vc: (Product Owner) Video->terminar
+vc: 
+vc: Transition Operations: \n--------------------------------
+vc: (Product Owner) product_backlog->escribir
+
+state ProductBacklogEscribir
+ProductBacklogEscribir: Available Operations: \n------------------------
+ProductBacklogEscribir: (Product Owner) product_backlog->escribir
+ProductBacklogEscribir: 
+ProductBacklogEscribir: Transition Operations: \n------------------------
+ProductBacklogEscribir: (Stake Holder) Video->pedir_hablar
+ProductBacklogEscribir: (Product Owner) Video->pedir_hablar
+ProductBacklogEscribir: (Product Owner) product_backlog->terminar
+
+vc --> c1
+c1 -[dashed]-> ProductBacklogEscribir: (Product Owner) product_backlog->escribir
+c1 --[dashed]--> [*] : (Product Owner) product_backlog->terminar
+c1 --[dashed]--> vc : (Product Owner) Video->pedir_hablar
+c1 --[dashed]--> vc : (Stake Holder) Video->pedir_hablar
+
+ProductBacklogEscribir ---> c1
+
+
+@enduml
+
+
+@startuml
+title protocolo de product
+
+'se analiza y se genera el product backlog
+
+state c1 <<choice>>
+
+state inicia_vc
+inicia_vc: Available Operations: \n----------------------------------
+inicia_vc: 
+inicia_vc: Transition Operations: \n--------------------------------
+inicia_vc: (Stake Holder) Video->pedir_hablar
+inicia_vc: (Product Owner) Video->pedir_hablar
+
+state HablaStakeHolder
+HablaStakeHolder: Available Operations: \n---------------------------
+HablaStakeHolder: (Stake Holder) Video->hablar
+HablaStakeHolder: 
+HablaStakeHolder: Transition Operations: \n---------------------------
+HablaStakeHolder: (Product Owner) Video->pedir_hablar
+HablaStakeHolder: (Product Owner) Video->terminar
+HablaStakeHolder: (Product Owner) product_backlog->escribir
+
+state HablaProductOwner
+HablaProductOwner: Available Operations: \n---------------------------
+HablaProductOwner: (Product Owner) Video->hablar
+HablaProductOwner: 
+HablaProductOwner: Transition Operations: \n--------------------------
+HablaProductOwner: (Stake Holder) Video->pedir_hablar
+HablaProductOwner: (Product Owner) Video->terminar
+HablaProductOwner: (Product Owner) product_backlog->escribir
+
+
+state ProductBacklogEscribir
+ProductBacklogEscribir: Available Operations: \n------------------------
+ProductBacklogEscribir: 
+ProductBacklogEscribir: Transition Operations: \n------------------------
+ProductBacklogEscribir: (Stake Holder) Video->pedir_hablar
+ProductBacklogEscribir: (Product Owner) Video->pedir_hablar
+ProductBacklogEscribir: (Product Owner) product_backlog->terminar
+
+[*] --> inicia_vc
+inicia_vc --> c1
+c1 -[dashed]-> HablaStakeHolder : (Stake Holder) Video->pedir_hablar
+c1 -[dashed]-> HablaProductOwner : (Product Owner) Video->pedir_hablar
+c1 -[dashed]-> ProductBacklogEscribir: (Product Owner) product_backlog->escribir
+c1 --[dashed]--> [*] : (Product Owner) product_backlog->terminar
+
+HablaStakeHolder ---> c1 
+HablaProductOwner ---> c1
+ProductBacklogEscribir ---> c1
+
+@enduml
+
+
+@startuml
+
+state estado1
+estado1: algo
+estado1: algo2
+
+[*] -> estado1
+estado1 -> estado2
+estado2 -> estado3
+estado3 -> [*]
+
+@enduml
