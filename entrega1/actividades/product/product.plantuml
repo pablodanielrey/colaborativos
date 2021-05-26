@@ -7,12 +7,12 @@ allowmixing
 () "<&star>Ingeniero de Requerimientos" as rem #LightBlue
 () "<&star>Team Member" as tm #LightBlue
 () "<&star>Sala" as room #Orange
+rectangle "Video Conferencia" as video #Green
 rectangle "Definición de Producto" as product #Gray
 rectangle "Tablero de User Stories" as user_stories #Green
 rectangle "Tablero de Technical Work" as technical_work #Green
 rectangle "Tablero de Conocimientos" as knoledge_adquisition #Green
 rectangle "Backlog" as product_backlog #Green
-rectangle "Video Conferencia" as video #Green
 rectangle "Chat" as chat #Green
 rectangle "Pizarra" as blackboard #Green
 rectangle "Archivos" as files #Green
@@ -21,82 +21,86 @@ product "1" -d[#Blue]-> "1" owner
 product "1" -d[#Blue]-> "*" sh
 product "1" -d[#Blue]-> "1" rem
 product "1" -d[#Blue]-> "*" tm
+product -u[#Green]-> video
 product -u[#Green]-> product_backlog
 product -u[#Green]-> user_stories
 product -u[#Green]-> technical_work
 product -u[#Green]-> knoledge_adquisition
-product -u[#Green]-> video
 product -d[#Orange]-> room
 product -d[#Green]-> blackboard
 product -d[#Green]-> chat
 product -d[#Green]-> files
 
 
-object Presencia {
+object "<&star>Presencia" as Presencia {
     .
-    (Product Owner) Chat->entrar
-    (Stake Holder) Chat->entrar
-    (Ingeniero de Requerimientos) Chat->entrar
-    (Team Member) Chat->entrar
+    <&cog>(Product Owner) Chat->entrar
+    <&cog>(Stake Holder) Chat->entrar
+    <&cog>(Ingeniero de Requerimientos) Chat->entrar
+    <&cog>(Team Member) Chat->entrar
     .
-    (Product Owner) Pizarra->entrar
-    (Stake Holder) Pizarra->entrar
-    (Ingeniero de Requerimientos) Pizarra->entrar
-    (Team Member) Pizarra->entrar    
+    <&cog>(Product Owner) Pizarra->entrar
+    <&cog>(Stake Holder) Pizarra->entrar
+    <&cog>(Ingeniero de Requerimientos) Pizarra->entrar
+    <&cog>(Team Member) Pizarra->entrar    
     .
-    (Product Owner) Video Conferencia->entrar
-    (Stake Holder) Video Conferencia->entrar
-    (Ingeniero de Requerimientos) Video Conferencia->entrar
-    (Team Member) Video Conferencia->entrar    
+    <&cog>(Product Owner) Video Conferencia->entrar
+    <&cog>(Stake Holder) Video Conferencia->entrar
+    <&cog>(Ingeniero de Requerimientos) Video Conferencia->entrar
+    <&cog>(Team Member) Video Conferencia->entrar    
 
 }
 
 
-Presencia -> video
-Presencia -> chat
-Presencia -> blackboard
+Presencia --> video
+Presencia --> chat
+Presencia --> blackboard
 
 
-object Acción {
+object "<&star>Acción" as Acción {
     .
-    (Product Owner) Chat->escribir
-    (Stake Holder) Chat->escribir
-    (Ingeniero de Requerimientos) Chat->escribir
-    (Team Member) Chat->escribir
+    <&cog>(Product Owner) Chat->escribir
+    <&cog>(Stake Holder) Chat->escribir
+    <&cog>(Ingeniero de Requerimientos) Chat->escribir
+    <&cog>(Team Member) Chat->escribir
 
     .
-    (Product Owner) Pizarra->dibujar
-    (Stake Holder) Pizarra->dibujar
-    (Ingeniero de Requerimientos) Pizarra->dibujar
-    (Team Member) Pizarra->dibujar
+    <&cog>(Product Owner) Pizarra->dibujar
+    <&cog>(Stake Holder) Pizarra->dibujar
+    <&cog>(Ingeniero de Requerimientos) Pizarra->dibujar
+    <&cog>(Team Member) Pizarra->dibujar
 }
 
 Acción -u-> chat
 Acción -u-> blackboard
 
-object Cambios {
+object "<&star>Cambios" as Cambios {
     .
-    (Product Owner) Tablero de User Stories->escribir
-    (Stake Holder) Tablero de User Stories->escribir
-    (Ingeniero de Requerimientos) Tablero de User Stories->escribir
-    (Team Member) Tablero de User Stories->escribir
+    <&cog>(Product Owner) Tablero de User Stories->escribir
+    <&cog>(Stake Holder) Tablero de User Stories->escribir
+    <&cog>(Ingeniero de Requerimientos) Tablero de User Stories->escribir
+    <&cog>(Team Member) Tablero de User Stories->escribir
     .
-    (Ingeniero de Requerimientos) Tablero de Conocimientos->escribir
-    (Team Member) Tablero de Conocimientos->escribir
+    <&cog>(Ingeniero de Requerimientos) Tablero de Conocimientos->escribir
+    <&cog>(Team Member) Tablero de Conocimientos->escribir
     .
-    (Ingeniero de Requerimientos) Tablero de Technical Work->escribir
-    (Team Member) Tablero de Technical Work->escribir
+    <&cog>(Ingeniero de Requerimientos) Tablero de Technical Work->escribir
+    <&cog>(Team Member) Tablero de Technical Work->escribir
     .
-    (Product Owner) Archivos->subir
-    (Stake Holder) Archivos->subir
-    (Ingeniero de Requerimientos) Archivos->subir
-    (Team Member) Archivos->subir    
+    <&cog>(Ingeniero de Requerimientos) Backlog->escribir
+    <&cog>(Team Member) Backlog->escribir
+    .
+    <&cog>(Product Owner) Archivos->subir
+    <&cog>(Stake Holder) Archivos->subir
+    <&cog>(Ingeniero de Requerimientos) Archivos->subir
+    <&cog>(Team Member) Archivos->subir    
 }
 
-Cambios -u-> files
-Cambios -u-> user_stories
-Cambios -u-> technical_work
-Cambios -u-> knoledge_adquisition
+Cambios -d-> files
+Cambios -d-> user_stories
+Cambios -d-> technical_work
+Cambios -d-> knoledge_adquisition
+Cambios -d-> product_backlog
 
 @enduml
 
