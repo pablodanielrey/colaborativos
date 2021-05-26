@@ -31,6 +31,73 @@ product -d[#Green]-> blackboard
 product -d[#Green]-> chat
 product -d[#Green]-> files
 
+
+object Presencia {
+    .
+    (Product Owner) Chat->entrar
+    (Stake Holder) Chat->entrar
+    (Ingeniero de Requerimientos) Chat->entrar
+    (Team Member) Chat->entrar
+    .
+    (Product Owner) Pizarra->entrar
+    (Stake Holder) Pizarra->entrar
+    (Ingeniero de Requerimientos) Pizarra->entrar
+    (Team Member) Pizarra->entrar    
+    .
+    (Product Owner) Video Conferencia->entrar
+    (Stake Holder) Video Conferencia->entrar
+    (Ingeniero de Requerimientos) Video Conferencia->entrar
+    (Team Member) Video Conferencia->entrar    
+
+}
+
+
+Presencia -> video
+Presencia -> chat
+Presencia -> blackboard
+
+
+object Acción {
+    .
+    (Product Owner) Chat->escribir
+    (Stake Holder) Chat->escribir
+    (Ingeniero de Requerimientos) Chat->escribir
+    (Team Member) Chat->escribir
+
+    .
+    (Product Owner) Pizarra->dibujar
+    (Stake Holder) Pizarra->dibujar
+    (Ingeniero de Requerimientos) Pizarra->dibujar
+    (Team Member) Pizarra->dibujar
+}
+
+Acción -u-> chat
+Acción -u-> blackboard
+
+object Cambios {
+    .
+    (Product Owner) Tablero de User Stories->escribir
+    (Stake Holder) Tablero de User Stories->escribir
+    (Ingeniero de Requerimientos) Tablero de User Stories->escribir
+    (Team Member) Tablero de User Stories->escribir
+    .
+    (Ingeniero de Requerimientos) Tablero de Conocimientos->escribir
+    (Team Member) Tablero de Conocimientos->escribir
+    .
+    (Ingeniero de Requerimientos) Tablero de Technical Work->escribir
+    (Team Member) Tablero de Technical Work->escribir
+    .
+    (Product Owner) Archivos->subir
+    (Stake Holder) Archivos->subir
+    (Ingeniero de Requerimientos) Archivos->subir
+    (Team Member) Archivos->subir    
+}
+
+Cambios -u-> files
+Cambios -u-> user_stories
+Cambios -u-> technical_work
+Cambios -u-> knoledge_adquisition
+
 @enduml
 
 /'
@@ -68,33 +135,33 @@ a1: (Product Owner) Tablero de User Stories->escribir
 a1: (Product Owner) Tablero de User Stories->leer
 a1: (Product Owner) chat->escribir
 a1: (Product Owner) Pizarra->dibujar
-a1: (Product Owner) files->subir
-a1: (Product Owner) files->descargar
+a1: (Product Owner) Archivos->subir
+a1: (Product Owner) Archivos->descargar
 a1: (Stake Holder) Video->hablar
 a1: (Stake Holder) Tablero de User Stories->escribir
 a1: (Stake Holder) Tablero de User Stories->leer
 a1: (Stake Holder) chat->escribir
 a1: (Stake Holder) Pizarra->dibujar
-a1: (Stake Holder) files->subir
-a1: (Stake Holder) files->descargar
+a1: (Stake Holder) Archivos->subir
+a1: (Stake Holder) Archivos->descargar
 a1: (Ingeniero de Requerimientos) Video->hablar
 a1: (Ingeniero de Requeriminetos) Tablero de User Stories->escribir
 a1: (Ingeniero de Requeriminetos) Tablero de User Stories->leer
 a1: (Ingeniero de Requerimientos) chat->escribir
 a1: (Ingeniero de Requerimientos) Pizarra->dibujar
-a1: (Ingeniero de Requerimientos) files->subir
-a1: (Ingeniero de Requerimientos) files->descargar
+a1: (Ingeniero de Requerimientos) Archivos->subir
+a1: (Ingeniero de Requerimientos) Archivos->descargar
 a1: (Team Member) Video-> hablar
 a1: (Team Member) Tablero de User Stories->escribir
 a1: (Team Member) Tablero de User Stories->leer
 a1: (Team Member) chat->escribir
 a1: (Team Member) Pizarra->dibujar
-a1: (Team Member) files->subir
-a1: (Team Member) files->descargar
+a1: (Team Member) Archivos->subir
+a1: (Team Member) Archivos->descargar
 a1:
 a1: Transition Operations :
 a1: ==================================================
-a1: (Ingeniero de Requerimientos) Tablero de User Stories->commit
+a1: (Ingeniero de Requerimientos) Tablero de User Stories->finalizar
 
 
 state "Selección de funcionalidad a refinar" as a3
@@ -121,21 +188,21 @@ a2: (Product Owner) Video->hablar
 a2: (Product Owner) Tablero de User Stories->leer
 a2: (Product Owner) chat->escribir
 a2: (Product Owner) Pizarra->dibujar
-a2: (Product Owner) files->subir
-a2: (Product Owner) files->descargar
+a2: (Product Owner) Archivos->subir
+a2: (Product Owner) Archivos->descargar
 a2: (Ingeniero de Requerimientos) Video->hablar
 a2: (Ingeniero de Requerimientos) chat->escribir
 a2: (Ingeniero de Requerimientos) Pizarra->dibujar
-a2: (Ingeniero de Requerimientos) files->subir
-a2: (Ingeniero de Requerimientos) files->descargar
+a2: (Ingeniero de Requerimientos) Archivos->subir
+a2: (Ingeniero de Requerimientos) Archivos->descargar
 a2: (Ingeniero de Requerimientos) Tablero de Technical Work->escribir
 a2: (Ingeniero de Requerimientos) Tablero de Conocimientos->escribir
 a2: (Ingeniero de Requerimientos) Backlog -> escribir
 a2: (Team Member) Video->escuchar
 a2: (Team Member) chat->escribir
 a2: (Team Member) Pizarra->dibujar
-a2: (Team Member) files->subir
-a2: (Team Member) files->descargar
+a2: (Team Member) Archivos->subir
+a2: (Team Member) Archivos->descargar
 a2: (Team Member) Tablero de Technical Work->escribir
 a2: (Team Member) Tablero de Conocimientos->escribir
 a2: (Team Member) Backblog->escribir
@@ -164,14 +231,14 @@ a4: (Team Member) Backlog->commit
 a4: (Ingeniero de Requerimientos) Backlog->commit
 
 state c1 <<choice>>
-
+ 
 [*] --> presentation
-presentation -> a1
-a1 -> a3
-a3 -> a2
-a2 -> c1
-c1 -> a3 : No se terminó con la funcionalidad a analizar
-c1 -> a4 : Se terminó con la funcionalidad a analizar
+presentation --> a1
+a1 --> a3
+a3 --> a2
+a2 --> c1
+c1 --> a3 : quedan mas user stories a analizar
+c1 --> a4 : no quedan mas user stories a analizar
 a4 --> [*]
 
 @enduml
