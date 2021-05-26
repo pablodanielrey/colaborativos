@@ -57,6 +57,22 @@ Presencia --> chat
 Presencia --> blackboard
 
 
+object "<&star>Presencia" as Presencia2 {
+    .
+    <&cog>(Product Owner) Sala->entrar
+    <&cog>(Stake Holder) Sala->entrar
+    <&cog>(Ingeniero de Requerimientos) Sala->entrar
+    <&cog>(Team Member) Sala->entrar
+    .
+    <&cog>(Product Owner) Sala->salir
+    <&cog>(Stake Holder) Sala->salir
+    <&cog>(Ingeniero de Requerimientos) Sala->salir
+    <&cog>(Team Member) Sala->salir
+}
+
+Presencia2 -u-> room
+
+
 object "<&star>Acción" as Acción {
     .
     <&cog>(Product Owner) Chat->escribir
@@ -69,10 +85,16 @@ object "<&star>Acción" as Acción {
     <&cog>(Stake Holder) Pizarra->dibujar
     <&cog>(Ingeniero de Requerimientos) Pizarra->dibujar
     <&cog>(Team Member) Pizarra->dibujar
+    .
+    <&cog>(Product Owner) Video Conferencia->hablar
+    <&cog>(Stake Holder) Video Conferencia->hablar
+    <&cog>(Ingeniero de Requerimientos) Video Conferencia->hablar
+    <&cog>(Team Member) Video Conferencia->hablar    
 }
 
 Acción -u-> chat
 Acción -u-> blackboard
+Acción -u-> video
 
 object "<&star>Cambios" as Cambios {
     .
