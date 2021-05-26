@@ -252,9 +252,9 @@ a4: (Team Member) Backlog->escribir
 a4:
 a4: Transition Operations :
 a4: ==================================================
-a4: (Product Owner) Backlog->commit
-a4: (Team Member) Backlog->commit
-a4: (Ingeniero de Requerimientos) Backlog->commit
+a4: (Product Owner) Backlog->finalizar
+a4: (Team Member) Backlog->finalizar
+a4: (Ingeniero de Requerimientos) Backlog->finalizar
 
 state c1 <<choice>>
  
