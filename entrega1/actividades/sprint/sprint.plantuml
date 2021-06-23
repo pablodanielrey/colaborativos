@@ -1,0 +1,53 @@
+@startuml spring_activities
+allowmixing
+
+rectangle "Sprint" as product #Gray
+
+rectangle "Backlog" as product_backlog #Green
+rectangle "Sprint Backlog" as sprint_backlog #Green
+
+
+product "1" -d[#Blue]-> "1" owner
+
+object "<&star>Presencia" as Presencia {
+    .
+    <&cog>(Product Owner) Chat->entrar
+    <&cog>(Stake Holder) Chat->entrar
+    <&cog>(Ingeniero de Requerimientos) Chat->entrar
+    <&cog>(Team Member) Chat->entrar
+    .
+    <&cog>(Product Owner) Pizarra->entrar
+    <&cog>(Stake Holder) Pizarra->entrar
+    <&cog>(Ingeniero de Requerimientos) Pizarra->entrar
+    <&cog>(Team Member) Pizarra->entrar    
+    .
+    <&cog>(Product Owner) Video Conferencia->entrar
+    <&cog>(Stake Holder) Video Conferencia->entrar
+    <&cog>(Ingeniero de Requerimientos) Video Conferencia->entrar
+    <&cog>(Team Member) Video Conferencia->entrar    
+
+}
+@enduml
+
+
+@startuml sping_protocol
+
+state "Priorización de Blacklog" as a4
+a4: Available Operations:
+a4: ==================================================
+a4: (Product Owner) Video->hablar
+a4: (Product Owner) Backlog->escribir
+a4: (Ingeniero de Requeriminetos) Video->hablar
+a4: (Ingeniero de Requeriminetos) Backlog->escribir
+a4: (Team Member) Video->hablar
+a4: (Team Member) Backlog->escribir
+a4:
+a4: Transition Operations :
+a4: ==================================================
+a4: (Product Owner) Backlog->finalizar
+a4: (Team Member) Backlog->finalizar
+a4: (Ingeniero de Requerimientos) Backlog->finalizar
+
+
+
+@enduml

@@ -1,0 +1,108 @@
+@startuml
+title Introducción
+allowmixing
+
+() "<&star>Product Owner" as owner #LightBlue
+() "<&star>Stake Holder" as sh #LightBlue
+() "<&star>Ingeniero de Requerimientos" as rem #LightBlue
+() "<&star>Team Member" as tm #LightBlue
+() "<&star>Sala" as room #Orange
+rectangle "Video Conferencia" as video #Green
+rectangle "Introducción al proceso" as introduction #Gray
+rectangle "Tablero de User Stories" as user_stories #Green
+
+introduction "1" -d[#Blue]-> "1" owner
+introduction "1" -d[#Blue]-> "*" sh
+introduction "1" -d[#Blue]-> "1" rem
+introduction "1" -d[#Blue]-> "*" tm
+introduction -u[#Green]-> video
+introduction -u[#Green]-> user_stories
+introduction -d[#Orange]-> room
+
+
+object "<&star>Presencia" as Presencia {
+    .
+    <&cog>(Product Owner) Video Conferencia->entrar
+    <&cog>(Stake Holder) Video Conferencia->entrar
+    <&cog>(Ingeniero de Requerimientos) Video Conferencia->entrar
+    <&cog>(Team Member) Video Conferencia->entrar    
+
+}
+
+
+Presencia --> video
+
+
+object "<&star>Presencia" as Presencia2 {
+    .
+    <&cog>(Product Owner) Sala->entrar
+    <&cog>(Stake Holder) Sala->entrar
+    <&cog>(Ingeniero de Requerimientos) Sala->entrar
+    <&cog>(Team Member) Sala->entrar
+    .
+    <&cog>(Product Owner) Sala->salir
+    <&cog>(Stake Holder) Sala->salir
+    <&cog>(Ingeniero de Requerimientos) Sala->salir
+    <&cog>(Team Member) Sala->salir
+}
+
+Presencia2 -u-> room
+
+
+object "<&star>Acción" as Acción {
+    .
+    <&cog>(Product Owner) Video Conferencia->hablar
+    <&cog>(Stake Holder) Video Conferencia->hablar
+    <&cog>(Ingeniero de Requerimientos) Video Conferencia->hablar
+    <&cog>(Team Member) Video Conferencia->hablar    
+}
+
+Acción -u-> video
+
+
+object "<&star>Cambios" as Cambios {
+    .
+    <&cog>(Product Owner) Tablero de User Stories->crear
+    <&cog>(Stake Holder) Tablero de User Stories->crear
+    <&cog>(Ingeniero de Requerimientos) Tablero de User Stories->crear
+    <&cog>(Team Member) Tablero de User Stories->crear
+}
+
+Cambios -d-> user_stories
+
+@enduml
+
+/'
+    El diagrama de transición de estados dentro de la actividad
+    recursos: 
+        https://www.mountaingoatsoftware.com/agile/scrum/scrum-tools/product-backlog#:~:text=The%20agile%20product%20backlog%20in,functionality%20desired%20in%20the%20product.&text=The%20Scrum%20product%20backlog%20is,the%20product%20and%20its%20customers.
+
+
+    consultas:
+        si o si todos los estados a choices? o puede haber transferencia a estados directamente sin pasar por choice?
+        todos los roles deben estar indicados en cada estado? o puede haber "subroles" ej Ingeniero de Requerimineto --> Team Member
+
+
+'/
+@startuml
+title protocolo de definición de producto
+
+state "Presentación/Introducción" as presentation
+presentation: Available Operations:
+presentation: ==================================================
+presentation: (Product Owner) Video->hablar
+presentation: (Stake Holder) Video->hablar
+presentation: (Team Member) Video->hablar
+presentation: (Ingeniero de Requerimientos) Video->hablar
+presentation: 
+presentation: Transition Operations:
+presentation: ==================================================
+presentation: (Ingeniero de Requerimientos) Tablero de User Stories->crear
+
+
+[*] --> presentation
+presentation --> [*]
+
+@enduml
+
+

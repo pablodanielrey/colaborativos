@@ -1,0 +1,55 @@
+@startuml scrum
+allowmixing
+
+rectangle "Introducción" as introduction #Gray
+rectangle "Definición de Producto" as product #Gray
+rectangle "Sprint" as sprint #Gray
+rectangle "Sprint Review" as sprint_review #Gray
+rectangle "Sprint Retrospective" as sprint_retrospective #Gray
+
+introduction -[thickness=3]-> product
+product -[thickness=3]-> sprint
+sprint -[thickness=3]-> sprint_review
+sprint_review -[thickness=3]-> sprint_retrospective
+sprint_retrospective -[thickness=3]-> product
+
+
+() "<&star>Product Owner" as owner #LightBlue
+() "<&star>Stake Holder" as sh #LightBlue
+() "<&star>Ingeniero de Requerimientos" as rem #LightBlue
+() "<&star>Team Member" as tm #LightBlue
+() "<&star>Sala" as room #Orange
+
+rectangle "Definición de Producto" as product #Gray
+
+rectangle "Backlog" as product_backlog #Green
+rectangle "Sprint Backlog" as sprint_backlog #Green
+
+product -u[#Green]-> product_backlog
+product -[#Blue]-> owner
+product -[#Blue]-> sh
+product -[#Blue]-> rem
+product -[#Blue]-> tm
+product -[#Orange]-> room
+
+sprint -u[#Green]-> product_backlog
+sprint -[#Green]-> sprint_backlog
+sprint -[#Blue]-> rem
+sprint -[#Blue]-> tm
+sprint -[#Orange]-> room
+
+sprint_review -u[#Green]-> sprint_backlog
+sprint_review -[#Blue]-> owner
+sprint_review -[#Blue]-> sh
+sprint_review -[#Blue]-> rem
+sprint_review -[#Blue]-> tm
+sprint_review -[#Orange]-> room
+
+sprint_retrospective -u[#Green]-> product_backlog
+sprint_retrospective -[#Blue]-> rem
+sprint_retrospective -[#Blue]-> tm
+sprint_retrospective -[#Orange]-> room
+
+
+@enduml
+

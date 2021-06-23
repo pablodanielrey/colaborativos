@@ -141,18 +141,6 @@ Cambios -d-> product_backlog
 @startuml
 title protocolo de definición de producto
 
-state "Presentación/Introducción" as presentation
-presentation: Available Operations:
-presentation: ==================================================
-presentation: (Product Owner) Video->hablar
-presentation: (Stake Holder) Video->hablar
-presentation: (Team Member) Video->hablar
-presentation: (Ingeniero de Requerimientos) Video->hablar
-presentation: 
-presentation: Transition Operations:
-presentation: ==================================================
-presentation: (Ingeniero de Requerimientos) Tablero de User Stories->crear
-
 state "Definición de Funcionalidad (nivel usuario)" as a1
 a1: Available Operations:
 a1: ==================================================
@@ -235,37 +223,20 @@ a2: (Team Member) Backblog->escribir
 a2:
 a2: Transition Operations :
 a2: ==================================================
-a2: (Ingeniero de Requeriminetos) Backblog->commit
+a2: (Ingeniero de Requeriminetos) Backlog->add
+a2: (Ingeniero de Requeriminetos) Backlog->commit
 a2: (Team Member) Backblog->commit
 
 
-
-state "Priorización de Blacklog" as a4
-a4: Available Operations:
-a4: ==================================================
-a4: (Product Owner) Video->hablar
-a4: (Product Owner) Backlog->escribir
-a4: (Ingeniero de Requeriminetos) Video->hablar
-a4: (Ingeniero de Requeriminetos) Backlog->escribir
-a4: (Team Member) Video->hablar
-a4: (Team Member) Backlog->escribir
-a4:
-a4: Transition Operations :
-a4: ==================================================
-a4: (Product Owner) Backlog->finalizar
-a4: (Team Member) Backlog->finalizar
-a4: (Ingeniero de Requerimientos) Backlog->finalizar
-
 state c1 <<choice>>
  
-[*] --> presentation
-presentation --> a1
-a1 --> a3
-a3 --> a2
-a2 --> c1
+[*] --> a1
+a1 --> a3 : Tablero de User Stories->finalizar
+a3 --> a2 : Tablero de User Storeis->seleccionar
+a2 --> a1 : Backlog->add
+a2 --> c1 : Backlog->commit
 c1 --> a3 : quedan mas user stories a analizar
-c1 --> a4 : no quedan mas user stories a analizar
-a4 --> [*]
+c1 --> [*] : no quedan mas user stories a analizar
 
 @enduml
 
