@@ -2,82 +2,233 @@
 allowmixing
 
 rectangle "Sprint Planning" as planning #Gray
-rectangle "Sprint" as sprint #Gray
-rectangle "Daily Review" as daily #Gray
-rectangle "Sprint Review" as sprint_review #Gray
-rectangle "Sprint Retrospective" as sprint_retrospective #Gray
 
 '--------------- recursos --------------------------- 
 
-rectangle "Backlog" as product_backlog #Green
-rectangle "Sprint Backlog" as sprint_backlog #Green
-
-'rectangle "Video Conferencia" as video #Green
-'rectangle "Chat" as chat #Green
-
-rectangle "Pizarra" as blackboard #Green
-rectangle "Archivos" as files #Green
-rectangle "Servidor de Integración Continua" as ci #Green
-
-rectangle "Editor de Código" as editor #Green
-rectangle "Versionado" as git #Green
-rectangle "Editor de Gráficos" as g_editor #Green
-
+rectangle "Backlog" as product_backlog1 #Green
+rectangle "Sprint Backlog" as sprint_backlog1 #Green
 
 rectangle "Video Conferencia" as video1 #Green
 rectangle "Chat" as chat1 #Green
 
-rectangle "Video Conferencia" as video2 #Green
-rectangle "Chat" as chat2 #Green
-
-rectangle "Video Conferencia" as video3 #Green
-rectangle "Chat" as chat3 #Green
-
-rectangle "Video Conferencia" as video4 #Green
-rectangle "Chat" as chat4 #Green
-
 '--------------- perfiles ------------------
 
-() "<&star>Ingeniero de Requerimientos" as rem #LightBlue
-() "<&star>Team Member" as tm #LightBlue
-
+() "<&star>Ingeniero de Requerimientos" as rem1 #LightBlue
+() "<&star>Team Member" as tm1 #LightBlue
 
 '-------------- recursos salas -------------
 
-() "<&star>Sala" as room #Orange
+() "<&star>Sala" as room1 #Orange
 
 
-
-planning --u[#Blue]--> product_backlog
-planning --u[#Blue]--> sprint_backlog
+planning -[#Blue]-> product_backlog1
+planning -[#Blue]-> sprint_backlog1
 planning -u[#Blue]-> chat1
 planning -u[#Blue]-> video1
 
+planning "1" -d[#Blue]-> "1" rem1
+planning "1" -d[#Blue]-> "*" tm1
 
-sprint "1" -d[#Blue]-> "1" rem
-sprint "1" -d[#Blue]-> "*" tm
+planning -d[#Orange]-> room1
 
-sprint -d[#Orange]-> room
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+'-----------------------------------------------------------
+
+rectangle "Sprint" as sprint #Gray
+
+'--------------- recursos --------------------------- 
+
+rectangle "Sprint Backlog" as sprint_backlog2 #Green
+rectangle "Pizarra" as blackboard2 #Green
+rectangle "Archivos" as files2 #Green
+rectangle "Editor de Código" as editor2 #Green
+rectangle "Versionado" as git2 #Green
+rectangle "Editor de Gráficos" as g_editor2 #Green
+rectangle "Servidor de Integración Continua" as ci2 #Green
+
+rectangle "Video Conferencia" as video2 #Green
+rectangle "Chat" as chat2 #Green
+
+'--------------- perfiles ------------------
+
+() "<&star>Team Member" as tm2 #LightBlue
+
+'-------------- recursos salas -------------
+
+() "<&star>Sala" as room2 #Orange
+
+sprint "1" -d[#Blue]-> "*" tm2
+
+sprint -d[#Orange]-> room2
 
 sprint -u[#Blue]-> chat2
 sprint -u[#Blue]-> video2
 
-sprint -u[#Blue]-> sprint_backlog
-sprint -u[#Blue]-> blackboard
-sprint -u[#Blue]-> files
-sprint -u[#Blue]-> editor
-sprint -u[#Blue]-> git
-sprint -u[#Blue]-> g_editor
-sprint -u[#Blue]-> ci
+sprint -[#Blue]-> sprint_backlog2
+sprint -u[#Blue]-> blackboard2
+sprint -u[#Blue]-> files2
+sprint -u[#Blue]-> editor2
+sprint -u[#Blue]-> git2
+sprint -u[#Blue]-> g_editor2
+sprint -u[#Blue]-> ci2
 
 
-daily ---u[#Blue]--> sprint_backlog
+
+
+
+
+
+
+
+
+
+
+
+
+
+'----------------------------------------------------------------
+
+
+rectangle "Daily Review\n15 min max" as daily #Gray
+
+'------------- recursos ---------------------
+
+rectangle "Sprint Backlog" as sprint_backlog3 #Green
+rectangle "Video Conferencia" as video3 #Green
+rectangle "Chat" as chat3 #Green
+rectangle "Pizarra" as blackboard3 #Green
+
+'--------------- perfiles ------------------
+
+() "<&star>Team Member" as tm3 #LightBlue
+
+'-------------- recursos salas -------------
+
+() "<&star>Sala" as room3 #Orange
+
+
+daily "1" -d[#Blue]-> "*" tm3
+daily -d[#Orange]-> room3
+
+daily -u[#Blue]-> sprint_backlog3
 daily -u[#Blue]-> chat3
 daily -u[#Blue]-> video3
+daily -u[#Blue]-> blackboard3
 
-sprint_review ---u[#Blue]---> ci
+
+
+
+
+
+
+
+
+
+
+
+
+
+'--------------------------------------------------------------
+
+
+rectangle "Sprint Review" as sprint_review #Gray
+
+'------------- recursos ---------------------
+
+rectangle "Sprint Backlog" as sprint_backlog4 #Green
+rectangle "Video Conferencia" as video4 #Green
+rectangle "Chat" as chat4 #Green
+rectangle "Pizarra" as blackboard4 #Green
+rectangle "Servidor de Integración Continua" as ci4 #Green
+
+'--------------- perfiles ------------------
+
+() "<&star>Team Member" as tm4 #LightBlue
+() "<&star>Product Owner" as po4 #LightBlue
+() "<&star>Stake Holder" as sh4 #LightBlue
+
+'-------------- recursos salas -------------
+
+() "<&star>Sala" as room4 #Orange
+
+
+sprint_review "1" -d[#Blue]-> "*" tm4
+sprint_review "1" -d[#Blue]-> "1" sh4
+sprint_review "1" -d[#Blue]-> "1" po4
+sprint_review -d[#Orange]-> room4
+
+sprint_review -[#Blue]-> sprint_backlog4
+sprint_review -u[#Blue]-> ci4
 sprint_review -u[#Blue]-> chat4
 sprint_review -u[#Blue]-> video4
+
+
+
+
+
+
+
+
+
+
+
+
+
+'-------------------------------------------
+
+rectangle "Sprint Retrospective" as sprint_retrospective #Gray
+
+
+'-------------- recursos -------------------
+
+rectangle "Sprint Backlog" as sprint_backlog5 #Green
+
+rectangle "Video Conferencia" as video5 #Green
+rectangle "Chat" as chat5 #Green
+
+'--------------- perfiles ------------------
+
+() "<&star>Team Member" as tm5 #LightBlue
+
+'-------------- recursos salas -------------
+
+() "<&star>Sala" as room5 #Orange
+
+
+
+sprint_retrospective "1" -d[#Blue]-> "*" tm5
+sprint_retrospective -d[#Orange]-> room5
+
+sprint_retrospective -[#Blue]-> sprint_backlog5
+sprint_retrospective -u[#Blue]-> chat5
+sprint_retrospective -u[#Blue]-> video5
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 '---------- awareness ------
@@ -158,6 +309,22 @@ Cambios -d-> git
 
 
 @enduml
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 @startuml sprint_process
 title "Proceso de Sprint"
