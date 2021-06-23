@@ -8,6 +8,7 @@ rectangle "Sprint Planning" as planning #Gray
 rectangle "Backlog" as product_backlog1 #Green
 rectangle "Sprint Backlog" as sprint_backlog1 #Green
 
+rectangle "Pizarra" as blackboard1 #Green
 rectangle "Video Conferencia" as video1 #Green
 rectangle "Chat" as chat1 #Green
 
@@ -25,11 +26,83 @@ planning -[#Blue]-> product_backlog1
 planning -[#Blue]-> sprint_backlog1
 planning -u[#Blue]-> chat1
 planning -u[#Blue]-> video1
+planning -u[#Blue]-> blackboard1
 
 planning "1" -d[#Blue]-> "1" rem1
 planning "1" -d[#Blue]-> "*" tm1
 
 planning -d[#Orange]-> room1
+
+
+'---------- awareness ------
+
+object "<&star>Presencia" as Presencia1 {
+    .
+    <&cog>(Ingeniero de Requerimientos) Chat->entrar
+    <&cog>(Team Member) Chat->entrar
+    .
+    <&cog>(Ingeniero de Requerimientos) Pizarra->entrar
+    <&cog>(Team Member) Pizarra->entrar    
+    .
+    <&cog>(Ingeniero de Requerimientos) Video Conferencia->entrar
+    <&cog>(Team Member) Video Conferencia->entrar    
+    .
+    <&cog>(Team Member) Editor de Código->entrar
+}
+
+Presencia1 --> video1
+Presencia1 --> chat1
+Presencia1 --> blackboard1
+
+
+object "<&star>Presencia" as Presencia_room1 {
+    .
+    <&cog>(Ingeniero de Requerimientos) Sala->entrar
+    <&cog>(Team Member) Sala->entrar
+    .
+    <&cog>(Ingeniero de Requerimientos) Sala->salir
+    <&cog>(Team Member) Sala->salir
+}
+
+Presencia_room1 --u--> room1
+
+object "<&star>Acción" as Acción1 {
+    .
+    <&cog>(Ingeniero de Requerimientos) Chat->escribir
+    <&cog>(Team Member) Chat->escribir
+
+    .
+    <&cog>(Ingeniero de Requerimientos) Pizarra->dibujar
+    <&cog>(Team Member) Pizarra->dibujar
+    .
+    <&cog>(Ingeniero de Requerimientos) Video Conferencia->hablar
+    <&cog>(Team Member) Video Conferencia->hablar    
+}
+
+Acción1 --> chat1
+Acción1 --> blackboard1
+Acción1 --> video1
+
+
+object "<&star>Cambios" as Cambios1 {
+    .
+    <&cog>(Ingeniero de Requerimientos) Backlog->escribir
+    <&cog>(Team Member) Backlog->escribir
+    .
+    <&cog>(Ingeniero de Requerimientos) Sprint Backlog->escribir
+    <&cog>(Team Member) Sprint Backlog->escribir
+    .
+    <&cog>(Ingeniero de Requerimientos) Archivos->subir
+    <&cog>(Team Member) Archivos->subir    
+    .
+    <&cog>(Team Member) Editor de Código->escribir
+    <&cog>(Team Member) Versionado->commit
+}
+
+Cambios1 -d-> product_backlog1
+Cambios1 -d-> sprint_backlog1
+
+
 
 
 
