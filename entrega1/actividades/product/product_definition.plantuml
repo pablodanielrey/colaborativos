@@ -6,9 +6,12 @@ allowmixing
 () "<&star>Stake Holder" as sh #LightBlue
 () "<&star>Ingeniero de Requerimientos" as rem #LightBlue
 () "<&star>Team Member" as tm #LightBlue
+
 () "<&star>Sala" as room #Orange
-rectangle "Video Conferencia" as video #Green
+
 rectangle "Definición de Producto" as product #Gray
+
+rectangle "Video Conferencia" as video #Green
 rectangle "Tablero de User Stories" as user_stories #Green
 rectangle "Tablero de Technical Work" as technical_work #Green
 rectangle "Tablero de Conocimientos" as knoledge_adquisition #Green
@@ -228,6 +231,23 @@ a2: (Ingeniero de Requeriminetos) Backlog->commit
 a2: (Team Member) Backblog->commit
 
 
+state "Priorización de Blacklog" as a4
+a4: Available Operations:
+a4: ==================================================
+a4: (Product Owner) Video->hablar
+a4: (Stake Holder) Video->hablar
+a4: (Ingeniero de Requeriminetos) Video->hablar
+a4: (Ingeniero de Requeriminetos) Backlog->leer
+a4: (Team Member) Video->hablar
+a4: (Team Member) Backlog->leer
+a4: (Team Member) Sprint Backlog->leer
+a4: (Team Member) Sprint Backlog->escribir
+a4:
+a4: Transition Operations :
+a4: ==================================================
+a4: (Team Member) Backlog->finalizar
+
+
 state c1 <<choice>>
  
 [*] --> a1
@@ -236,7 +256,8 @@ a3 --> a2 : Tablero de User Storeis->seleccionar
 a2 --> a1 : Backlog->add
 a2 --> c1 : Backlog->commit
 c1 --> a3 : quedan mas user stories a analizar
-c1 --> [*] : no quedan mas user stories a analizar
+c1 --> a4 : no quedan mas user stories a analizar
+a4 --> [*] : Backlog->finalizar
 
 @enduml
 

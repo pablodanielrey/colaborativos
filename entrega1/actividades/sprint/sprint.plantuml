@@ -1,52 +1,256 @@
-@startuml spring_activities
+@startuml sprint_activities
 allowmixing
 
-rectangle "Sprint" as product #Gray
+rectangle "Sprint Planning" as planning #Gray
+rectangle "Sprint" as sprint #Gray
+rectangle "Daily Review" as daily #Gray
+rectangle "Sprint Review" as sprint_review #Gray
+rectangle "Sprint Retrospective" as sprint_retrospective #Gray
+
+'--------------- recursos --------------------------- 
 
 rectangle "Backlog" as product_backlog #Green
 rectangle "Sprint Backlog" as sprint_backlog #Green
 
+'rectangle "Video Conferencia" as video #Green
+'rectangle "Chat" as chat #Green
 
-product "1" -d[#Blue]-> "1" owner
+rectangle "Pizarra" as blackboard #Green
+rectangle "Archivos" as files #Green
+rectangle "Servidor de Integración Continua" as ci #Green
+
+rectangle "Editor de Código" as editor #Green
+rectangle "Versionado" as git #Green
+rectangle "Editor de Gráficos" as g_editor #Green
+
+
+rectangle "Video Conferencia" as video1 #Green
+rectangle "Chat" as chat1 #Green
+
+rectangle "Video Conferencia" as video2 #Green
+rectangle "Chat" as chat2 #Green
+
+rectangle "Video Conferencia" as video3 #Green
+rectangle "Chat" as chat3 #Green
+
+rectangle "Video Conferencia" as video4 #Green
+rectangle "Chat" as chat4 #Green
+
+'--------------- perfiles ------------------
+
+() "<&star>Ingeniero de Requerimientos" as rem #LightBlue
+() "<&star>Team Member" as tm #LightBlue
+
+
+'-------------- recursos salas -------------
+
+() "<&star>Sala" as room #Orange
+
+
+
+planning --u[#Blue]--> product_backlog
+planning --u[#Blue]--> sprint_backlog
+planning -u[#Blue]-> chat1
+planning -u[#Blue]-> video1
+
+
+sprint "1" -d[#Blue]-> "1" rem
+sprint "1" -d[#Blue]-> "*" tm
+
+sprint -d[#Orange]-> room
+
+sprint -u[#Blue]-> chat2
+sprint -u[#Blue]-> video2
+
+sprint -u[#Blue]-> sprint_backlog
+sprint -u[#Blue]-> blackboard
+sprint -u[#Blue]-> files
+sprint -u[#Blue]-> editor
+sprint -u[#Blue]-> git
+sprint -u[#Blue]-> g_editor
+sprint -u[#Blue]-> ci
+
+
+daily ---u[#Blue]--> sprint_backlog
+daily -u[#Blue]-> chat3
+daily -u[#Blue]-> video3
+
+sprint_review ---u[#Blue]---> ci
+sprint_review -u[#Blue]-> chat4
+sprint_review -u[#Blue]-> video4
+
+
+'---------- awareness ------
 
 object "<&star>Presencia" as Presencia {
     .
-    <&cog>(Product Owner) Chat->entrar
-    <&cog>(Stake Holder) Chat->entrar
     <&cog>(Ingeniero de Requerimientos) Chat->entrar
     <&cog>(Team Member) Chat->entrar
     .
-    <&cog>(Product Owner) Pizarra->entrar
-    <&cog>(Stake Holder) Pizarra->entrar
     <&cog>(Ingeniero de Requerimientos) Pizarra->entrar
     <&cog>(Team Member) Pizarra->entrar    
     .
-    <&cog>(Product Owner) Video Conferencia->entrar
-    <&cog>(Stake Holder) Video Conferencia->entrar
     <&cog>(Ingeniero de Requerimientos) Video Conferencia->entrar
     <&cog>(Team Member) Video Conferencia->entrar    
-
+    .
+    <&cog>(Team Member) Editor de Código->entrar
 }
+
+Presencia --> video
+Presencia --> chat
+Presencia --> blackboard
+Presencia --> editor
+
+object "<&star>Presencia" as Presencia2 {
+    .
+    <&cog>(Ingeniero de Requerimientos) Sala->entrar
+    <&cog>(Team Member) Sala->entrar
+    .
+    <&cog>(Ingeniero de Requerimientos) Sala->salir
+    <&cog>(Team Member) Sala->salir
+}
+
+Presencia2 --u--> room
+
+object "<&star>Acción" as Acción {
+    .
+    <&cog>(Ingeniero de Requerimientos) Chat->escribir
+    <&cog>(Team Member) Chat->escribir
+
+    .
+    <&cog>(Ingeniero de Requerimientos) Pizarra->dibujar
+    <&cog>(Team Member) Pizarra->dibujar
+    .
+    <&cog>(Ingeniero de Requerimientos) Video Conferencia->hablar
+    <&cog>(Team Member) Video Conferencia->hablar    
+    .
+    <&cog>(Team Member) Editor de Gráficos->editar
+}
+
+Acción --> chat
+Acción --> blackboard
+Acción --> video
+Acción --> g_editor
+
+object "<&star>Cambios" as Cambios {
+    .
+    <&cog>(Ingeniero de Requerimientos) Backlog->escribir
+    <&cog>(Team Member) Backlog->escribir
+    .
+    <&cog>(Ingeniero de Requerimientos) Sprint Backlog->escribir
+    <&cog>(Team Member) Sprint Backlog->escribir
+    .
+    <&cog>(Ingeniero de Requerimientos) Archivos->subir
+    <&cog>(Team Member) Archivos->subir    
+    .
+    <&cog>(Team Member) Editor de Código->escribir
+    <&cog>(Team Member) Versionado->commit
+}
+
+Cambios -d-> files
+'Cambios -d-> user_stories
+'Cambios -d-> technical_work
+'Cambios -d-> knoledge_adquisition
+Cambios -d-> product_backlog
+Cambios -d-> sprint_backlog
+Cambios -d-> editor
+Cambios -d-> git
+
+
+@enduml
+
+@startuml sprint_process
+title "Proceso de Sprint"
+
+state "Sprint Planning" as planning
+state "Sprint" as sprint
+state "Daily Review" as daily
+state "Sprint Review" as review
+state "Sprint Retrospective" as retrospective
+
+state f <<fork>>
+
+sprint -> daily : (Team Member) Daily Review->init
+daily -> sprint : (Team Member) Daily Review->finish
+
+[*] --> planning : (Team Member) Product Backlog->seleccionar
+planning --> sprint : (Team Member) Sprint Backlog->seleccionar
+sprint --> review : (Team Member) Sprint Backlog->finalizar
+review --> f : (Team Member) Sprint Backlog->reviewed
+f --> retrospective : existe mas funcionalidad
+f --> [*] : no existe mas funcionalidad
+retrospective --u--> planning : (Team Member) Sprint Retrospective->finish
+
+
 @enduml
 
 
-@startuml sping_protocol
 
-state "Priorización de Blacklog" as a4
-a4: Available Operations:
-a4: ==================================================
-a4: (Product Owner) Video->hablar
-a4: (Product Owner) Backlog->escribir
-a4: (Ingeniero de Requeriminetos) Video->hablar
-a4: (Ingeniero de Requeriminetos) Backlog->escribir
-a4: (Team Member) Video->hablar
-a4: (Team Member) Backlog->escribir
-a4:
-a4: Transition Operations :
-a4: ==================================================
-a4: (Product Owner) Backlog->finalizar
-a4: (Team Member) Backlog->finalizar
-a4: (Ingeniero de Requerimientos) Backlog->finalizar
+@startuml spint_protocol
+
+state "Selección de Funcionalidad" as a1
+a1: Available Operations:
+a1: ==================================================
+a1: (Team Member) Video->hablar
+a1: (Team Member) Backlog->leer
+a1: (Team Member) Sprint Backlog->leer
+a1: (Team Member) Sprint Backlog->escribir
+a1:
+a1: Transition Operations :
+a1: ==================================================
+a1: (Team Member) Sprint Backlog->iniciar
+
+
+
+state "Daily" as a2
+a3: Available Operations:
+a3: ==================================================
+a3: (Team Member) Editor de Código->escribir
+a3: (Team Member) Editor de Gráficos->editar
+a3: (Team Member) Versionado->commit
+a3: (Team Member) Versionado->pull
+a3: (Team Member) Versionado->push
+a3: (Team Member) Video->hablar
+a3: (Team Member) Chat->escribir
+a3: (Team Member) Chat->leer
+a3: (Team Member) Archivos->descargar
+a3: (Team Member) Archivos->subir
+a3: (Team Member) Pizarra->dibujar
+a3: (Team Member) Sprint Backlog->leer
+a3: (Team Member) Sprint Backlog->escribir
+a3:
+a3: Transition Operations :
+a3: ==================================================
+a3: (Team Member) Sprint Backlog->finalizar
+
+
+
+state "Trabajo Diario" as a3
+a3: Available Operations:
+a3: ==================================================
+a3: (Team Member) Editor de Código->escribir
+a3: (Team Member) Editor de Gráficos->editar
+a3: (Team Member) Versionado->commit
+a3: (Team Member) Versionado->pull
+a3: (Team Member) Versionado->push
+a3: (Team Member) Video->hablar
+a3: (Team Member) Chat->escribir
+a3: (Team Member) Chat->leer
+a3: (Team Member) Archivos->descargar
+a3: (Team Member) Archivos->subir
+a3: (Team Member) Pizarra->dibujar
+a3: (Team Member) Sprint Backlog->leer
+a3: (Team Member) Sprint Backlog->escribir
+a3:
+a3: Transition Operations :
+a3: ==================================================
+a3: (Team Member) Sprint Backlog->finalizar
+
+
+
+[*] --> a1
+a1 --> a2
+a2 --> [*]
 
 
 
