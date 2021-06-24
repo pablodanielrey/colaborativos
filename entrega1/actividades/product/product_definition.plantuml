@@ -1,4 +1,4 @@
-@startuml
+@startuml actividad
 title Etapa de definición del producto
 allowmixing
 
@@ -10,6 +10,7 @@ allowmixing
 () "<&star>Sala" as room #Orange
 
 rectangle "Definición de Producto" as product #Gray
+note bottom: Se define el Product Backlog\nQue determinan los requeriminetos\ny tareas a realizar
 
 rectangle "Video Conferencia" as video #Green
 rectangle "Tablero de User Stories" as user_stories #Green
@@ -141,7 +142,7 @@ Cambios -d-> product_backlog
 
 
 '/
-@startuml
+@startuml protocolo
 title protocolo de definición de producto
 
 state "Definición de Funcionalidad (nivel usuario)" as a1

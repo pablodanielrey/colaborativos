@@ -1,5 +1,5 @@
-@startuml
-title Introducción
+@startuml actividad
+title Introducción del proceso de SCRUM
 allowmixing
 
 () "<&star>Product Owner" as owner #LightBlue
@@ -84,8 +84,8 @@ Cambios -d-> user_stories
 
 
 '/
-@startuml
-title protocolo de definición de producto
+@startuml protocolo
+title Introducción del proceso de SCRUM
 
 state "Presentación/Introducción" as presentation
 presentation: Available Operations:

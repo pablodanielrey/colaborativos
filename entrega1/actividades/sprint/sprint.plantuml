@@ -1,5 +1,6 @@
-@startuml sprint_activities
+@startuml actividad
 allowmixing
+
 
 rectangle "Sprint Planning" as planning #Gray
 
@@ -22,11 +23,11 @@ rectangle "Chat" as chat1 #Green
 () "<&star>Sala" as room1 #Orange
 
 
-planning -[#Blue]-> product_backlog1
-planning -[#Blue]-> sprint_backlog1
-planning -u[#Blue]-> chat1
-planning -u[#Blue]-> video1
-planning -u[#Blue]-> blackboard1
+planning -[#Green]-> product_backlog1
+planning -[#Green]-> sprint_backlog1
+planning -u[#Green]-> chat1
+planning -u[#Green]-> video1
+planning -u[#Green]-> blackboard1
 
 planning "1" -d[#Blue]-> "1" rem1
 planning "1" -d[#Blue]-> "*" tm1
@@ -46,8 +47,7 @@ object "<&star>Presencia" as Presencia1 {
     .
     <&cog>(Ingeniero de Requerimientos) Video Conferencia->entrar
     <&cog>(Team Member) Video Conferencia->entrar    
-    .
-    <&cog>(Team Member) Editor de Código->entrar
+
 }
 
 Presencia1 --> video1
@@ -70,7 +70,6 @@ object "<&star>Acción" as Acción1 {
     .
     <&cog>(Ingeniero de Requerimientos) Chat->escribir
     <&cog>(Team Member) Chat->escribir
-
     .
     <&cog>(Ingeniero de Requerimientos) Pizarra->dibujar
     <&cog>(Team Member) Pizarra->dibujar
@@ -121,6 +120,7 @@ Cambios1 -d-> sprint_backlog1
 '-----------------------------------------------------------
 
 rectangle "Sprint" as sprint #Gray
+note bottom: Genera un entregable en\nServidor de integración continua\nque usan las actividades siguientes
 
 '--------------- recursos --------------------------- 
 
@@ -129,8 +129,9 @@ rectangle "Pizarra" as blackboard2 #Green
 rectangle "Archivos" as files2 #Green
 rectangle "Editor de Código" as editor2 #Green
 rectangle "Versionado" as git2 #Green
-rectangle "Editor de Gráficos" as g_editor2 #Green
 rectangle "Servidor de Integración Continua" as ci2 #Green
+rectangle "Editor de Gráficos" as g_editor2 #Green
+note top: "si no es herramineta colaborativa no va no?" 
 
 rectangle "Video Conferencia" as video2 #Green
 rectangle "Chat" as chat2 #Green
@@ -147,17 +148,66 @@ sprint "1" -d[#Blue]-> "*" tm2
 
 sprint -d[#Orange]-> room2
 
-sprint -u[#Blue]-> chat2
-sprint -u[#Blue]-> video2
+sprint -u[#Green]-> chat2
+sprint -u[#Green]-> video2
 
-sprint -[#Blue]-> sprint_backlog2
-sprint -u[#Blue]-> blackboard2
-sprint -u[#Blue]-> files2
-sprint -u[#Blue]-> editor2
-sprint -u[#Blue]-> git2
-sprint -u[#Blue]-> g_editor2
-sprint -u[#Blue]-> ci2
+sprint -[#Green]-> sprint_backlog2
+sprint -u[#Green]-> blackboard2
+sprint -u[#Green]-> files2
+sprint -u[#Green]-> editor2
+sprint -u[#Green]-> git2
+sprint -u[#Green]-> g_editor2
+sprint -[#Green]-> ci2
 
+
+'---------- awareness ------
+
+object "<&star>Presencia" as Presencia2 {
+    .
+    <&cog>(Team Member) Chat->entrar
+    <&cog>(Team Member) Pizarra->entrar    
+    <&cog>(Team Member) Video Conferencia->entrar    
+    <&cog>(Team Member) Editor de Código->entrar
+}
+
+Presencia2 --> video2
+Presencia2 --> chat2
+Presencia2 --> blackboard2
+Presencia2 --> editor2
+
+object "<&star>Presencia" as Presencia_room2 {
+    .
+    <&cog>(Team Member) Sala->entrar
+    <&cog>(Team Member) Sala->salir
+}
+
+Presencia_room2 --u--> room2
+
+object "<&star>Acción" as Acción2 {
+    .
+    <&cog>(Team Member) Chat->escribir
+    <&cog>(Team Member) Pizarra->dibujar
+    <&cog>(Team Member) Video Conferencia->hablar    
+}
+
+Acción2 --> chat2
+Acción2 --> blackboard2
+Acción2 --> video2
+
+
+object "<&star>Cambios" as Cambios2 {
+    .
+    <&cog>(Team Member) Servidor de Integración Continua->subir
+    <&cog>(Team Member) Sprint Backlog->escribir
+    <&cog>(Team Member) Archivos->subir    
+    <&cog>(Team Member) Editor de Código->escribir
+    <&cog>(Team Member) Versionado->push
+}
+
+Cambios2 --> sprint_backlog2
+Cambios2 --> git2
+Cambios2 --> files2
+Cambios2 --> ci2
 
 
 
@@ -176,7 +226,7 @@ sprint -u[#Blue]-> ci2
 
 
 rectangle "Daily Review\n15 min max" as daily #Gray
-
+note left: "Los miembros cuentan un poco el progreso\nla pizarra solo para explicar rápido"
 '------------- recursos ---------------------
 
 rectangle "Sprint Backlog" as sprint_backlog3 #Green
@@ -196,15 +246,63 @@ rectangle "Pizarra" as blackboard3 #Green
 daily "1" -d[#Blue]-> "*" tm3
 daily -d[#Orange]-> room3
 
-daily -u[#Blue]-> sprint_backlog3
-daily -u[#Blue]-> chat3
-daily -u[#Blue]-> video3
-daily -u[#Blue]-> blackboard3
+daily -u[#Green]-> sprint_backlog3
+daily -u[#Green]-> chat3
+daily -u[#Green]-> video3
+daily -u[#Green]-> blackboard3
 
 
+'---------- awareness ------
+
+object "<&star>Presencia" as Presencia3 {
+    .
+    <&cog>(Team Member) Chat->entrar
+    <&cog>(Team Member) Pizarra->entrar    
+    <&cog>(Team Member) Video Conferencia->entrar    
+    <&cog>(Team Member) Editor de Código->entrar
+}
+
+Presencia3 --> video3
+Presencia3 --> chat3
+Presencia3 --> blackboard3
 
 
+object "<&star>Presencia" as Presencia_room3 {
+    .
+    <&cog>(Team Member) Sala->entrar
+    <&cog>(Team Member) Sala->salir
+}
 
+Presencia_room3 --u--> room3
+
+object "<&star>Acción" as Acción3 {
+    .
+    <&cog>(Team Member) Chat->escribir
+    <&cog>(Team Member) Pizarra->dibujar
+    <&cog>(Team Member) Video Conferencia->hablar    
+}
+
+Acción3 --> chat3
+Acción3 --> video3
+Acción3 --> blackboard3
+
+
+object "<&star>Cambios" as Cambios3 {
+    .
+    <&cog>(Team Member) Sprint Backlog->escribir
+}
+
+Cambios3 --> sprint_backlog3
+
+
+object "<&star>Cambios" as Cambios_activity3 {
+    .
+    <&cog>(System) Daily Review->time_expired
+    <&cog>(Team Member) Daily Review->speaker_selected
+}
+note bottom: Muestra cuando el reloj expira\ny cuando se selecciona a otro miembro para hablar
+
+Cambios_activity3 -l-> daily
 
 
 
@@ -218,6 +316,7 @@ daily -u[#Blue]-> blackboard3
 
 
 rectangle "Sprint Review" as sprint_review #Gray
+note bottom: Se analiza el entregable del sprint\ny se retroalimenta el sprint backlog\nse determina si se debe seguir con\nla demás funcionalidad
 
 '------------- recursos ---------------------
 
@@ -243,10 +342,75 @@ sprint_review "1" -d[#Blue]-> "1" sh4
 sprint_review "1" -d[#Blue]-> "1" po4
 sprint_review -d[#Orange]-> room4
 
-sprint_review -[#Blue]-> sprint_backlog4
-sprint_review -u[#Blue]-> ci4
-sprint_review -u[#Blue]-> chat4
-sprint_review -u[#Blue]-> video4
+sprint_review -[#Green]-> sprint_backlog4
+sprint_review -u[#Green]-> ci4
+sprint_review -u[#Green]-> chat4
+sprint_review -u[#Green]-> video4
+sprint_review -u[#Green]-> blackboard4
+
+'---------- awareness ------
+
+object "<&star>Presencia" as Presencia4 {
+    .
+    <&cog>(Team Member) Chat->entrar
+    <&cog>(Team Member) Video Conferencia->entrar    
+    .
+    <&cog>(Product Owner) Chat->entrar
+    <&cog>(Product Owner) Video Conferencia->entrar    
+    .
+    <&cog>(Stake Holder) Chat->entrar
+    <&cog>(Stake Holder) Video Conferencia->entrar        
+}
+
+Presencia4 --> video4
+Presencia4 --> chat4
+
+object "<&star>Presencia" as Presencia_room4 {
+    .
+    <&cog>(Team Member) Sala->entrar
+    <&cog>(Team Member) Sala->salir
+    .
+    <&cog>(Product Owner) Sala->entrar
+    <&cog>(Product Owner) Sala->salir
+    .
+    <&cog>(Stake Holder) Sala->entrar
+    <&cog>(Stake Holder) Sala->salir
+}
+
+Presencia_room4 --u--> room4
+
+object "<&star>Acción" as Acción4 {
+    .
+    <&cog>(Team Member) Chat->escribir
+    <&cog>(Team Member) Video Conferencia->hablar
+    <&cog>(Team Member) Sprint Backlog->escribir    
+    .
+    <&cog>(Product Owner) Chat->escribir
+    <&cog>(Product Owner) Video Conferencia->hablar
+    .
+    <&cog>(Stake Holder) Chat->escribir
+    <&cog>(Stake Holder) Video Conferencia->hablar
+
+}
+
+Acción4 --> chat4
+Acción4 --> video4
+Acción4 --> sprint_backlog4
+
+
+object "<&star>Cambios" as Cambios4 {
+    .
+    <&cog>(Team Member) Servidor de Integración Continua->subir
+    <&cog>(Team Member) Sprint Backlog->escribir
+    <&cog>(Team Member) Archivos->subir    
+    <&cog>(Team Member) Editor de Código->escribir
+    <&cog>(Team Member) Versionado->push
+}
+
+Cambios4 --> sprint_backlog4
+
+
+
 
 
 
@@ -285,100 +449,51 @@ rectangle "Chat" as chat5 #Green
 sprint_retrospective "1" -d[#Blue]-> "*" tm5
 sprint_retrospective -d[#Orange]-> room5
 
-sprint_retrospective -[#Blue]-> sprint_backlog5
-sprint_retrospective -u[#Blue]-> chat5
-sprint_retrospective -u[#Blue]-> video5
-
-
-
-
-
-
-
-
-
-
-
-
-
+sprint_retrospective -[#Green]-> sprint_backlog5
+sprint_retrospective -u[#Green]-> chat5
+sprint_retrospective -u[#Green]-> video5
 
 
 
 '---------- awareness ------
 
-object "<&star>Presencia" as Presencia {
+object "<&star>Presencia" as Presencia5 {
     .
-    <&cog>(Ingeniero de Requerimientos) Chat->entrar
     <&cog>(Team Member) Chat->entrar
-    .
-    <&cog>(Ingeniero de Requerimientos) Pizarra->entrar
-    <&cog>(Team Member) Pizarra->entrar    
-    .
-    <&cog>(Ingeniero de Requerimientos) Video Conferencia->entrar
     <&cog>(Team Member) Video Conferencia->entrar    
-    .
-    <&cog>(Team Member) Editor de Código->entrar
 }
 
-Presencia --> video
-Presencia --> chat
-Presencia --> blackboard
-Presencia --> editor
+Presencia5 --> video5
+Presencia5 --> chat5
 
-object "<&star>Presencia" as Presencia2 {
+object "<&star>Presencia" as Presencia_room5 {
     .
-    <&cog>(Ingeniero de Requerimientos) Sala->entrar
     <&cog>(Team Member) Sala->entrar
-    .
-    <&cog>(Ingeniero de Requerimientos) Sala->salir
     <&cog>(Team Member) Sala->salir
 }
 
-Presencia2 --u--> room
+Presencia_room5 --u--> room5
 
-object "<&star>Acción" as Acción {
+object "<&star>Acción" as Acción5 {
     .
-    <&cog>(Ingeniero de Requerimientos) Chat->escribir
     <&cog>(Team Member) Chat->escribir
-
-    .
-    <&cog>(Ingeniero de Requerimientos) Pizarra->dibujar
-    <&cog>(Team Member) Pizarra->dibujar
-    .
-    <&cog>(Ingeniero de Requerimientos) Video Conferencia->hablar
-    <&cog>(Team Member) Video Conferencia->hablar    
-    .
-    <&cog>(Team Member) Editor de Gráficos->editar
+    <&cog>(Team Member) Video Conferencia->hablar
+    <&cog>(Team Member) Sprint Backlog->escribir    
 }
 
-Acción --> chat
-Acción --> blackboard
-Acción --> video
-Acción --> g_editor
+Acción5 --> chat5
+Acción5 --> video5
+Acción5 --> sprint_backlog5
 
-object "<&star>Cambios" as Cambios {
+
+object "<&star>Cambios" as Cambios5 {
     .
-    <&cog>(Ingeniero de Requerimientos) Backlog->escribir
-    <&cog>(Team Member) Backlog->escribir
-    .
-    <&cog>(Ingeniero de Requerimientos) Sprint Backlog->escribir
     <&cog>(Team Member) Sprint Backlog->escribir
-    .
-    <&cog>(Ingeniero de Requerimientos) Archivos->subir
-    <&cog>(Team Member) Archivos->subir    
-    .
-    <&cog>(Team Member) Editor de Código->escribir
-    <&cog>(Team Member) Versionado->commit
 }
 
-Cambios -d-> files
-'Cambios -d-> user_stories
-'Cambios -d-> technical_work
-'Cambios -d-> knoledge_adquisition
-Cambios -d-> product_backlog
-Cambios -d-> sprint_backlog
-Cambios -d-> editor
-Cambios -d-> git
+Cambios5 --> sprint_backlog5
+
+
 
 
 @enduml
@@ -399,7 +514,7 @@ Cambios -d-> git
 
 
 
-@startuml sprint_process
+@startuml proceso
 title "Proceso de Sprint"
 
 state "Sprint Planning" as planning
@@ -408,7 +523,8 @@ state "Daily Review" as daily
 state "Sprint Review" as review
 state "Sprint Retrospective" as retrospective
 
-state f <<fork>>
+'state f <<fork>>
+state c <<choice>>
 
 sprint -> daily : (Team Member) Daily Review->init
 daily -> sprint : (Team Member) Daily Review->finish
@@ -416,9 +532,9 @@ daily -> sprint : (Team Member) Daily Review->finish
 [*] --> planning : (Team Member) Product Backlog->seleccionar
 planning --> sprint : (Team Member) Sprint Backlog->seleccionar
 sprint --> review : (Team Member) Sprint Backlog->finalizar
-review --> f : (Team Member) Sprint Backlog->reviewed
-f --> retrospective : existe mas funcionalidad
-f --> [*] : no existe mas funcionalidad
+review --> c : (Team Member) Sprint Backlog->reviewed
+c --> retrospective : existe mas funcionalidad
+c --> [*] : no existe mas funcionalidad
 retrospective --u--> planning : (Team Member) Sprint Retrospective->finish
 
 
